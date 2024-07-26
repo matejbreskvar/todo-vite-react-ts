@@ -1,19 +1,27 @@
-import {ChangeEvent, FormEvent, useState} from "react";
+import {ChangeEvent, useState} from "react";
 import {Todo} from "./Todo.tsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import * as Dialog from '@radix-ui/react-dialog';
+import {Flex, TextArea} from "@radix-ui/themes";
+import './styles.css';
+
+const MILLISECONDS_A_DAY  = 86400000;
+const MAX_LENGTH_INPUT = 100;
 
 export default function App() {
     const [input, setInput] = useState("");
     const[todos,setTodos]=useState<Todo[]>([])
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState<Date|null>(null);
+    const [open, setOpen] = useState(false);
+    const [text,setText] = useState("");
 
     const arrayTodos = todos.map((todo: Todo) => {
         return (
-            <li className="liTodo">
+            <li key={todo.id} className="liTodo">
                 <label htmlFor="checkboxTodo">
-                    {todo.value}
-                    {todo.date!==null && (todo.date.getTime()-Date.now()).toString()}
+                    {todo.title} |
+                    {todo.date!==null && daysLeft(todo.date)}
                     <input type="checkbox" id="checkboxTodo" checked={todo.completed} onChange={(e) => handleChecked(e.target.checked,todo.id)} />
                 </label>
                 {todo.completed && <button className="deleteButton" onClick={()=>handleDelete(todo.id)}>Delete</button>}
@@ -24,14 +32,15 @@ export default function App() {
         setInput(e.target.value)
         //console.log(input)
     }
-    function addTodo(e:FormEvent<HTMLFormElement>) {
-        e.preventDefault()
+    function addTodo() {
         if(input==="")return
         setTodos(currentTodos=>{
-            return [...currentTodos, {id:crypto.randomUUID(), value:input, completed:false, date:date}]
+            return [...currentTodos, {id:crypto.randomUUID(), title:input, text:text, completed:false, date:date}]
         })
+        setText("")
+        setOpen(false);
         setInput("")
-        setDate(new Date());
+        setDate(null);
     }
     function handleChecked(completed:boolean,id: string ) {
         setTodos(currentTodos =>{
@@ -63,24 +72,65 @@ export default function App() {
             return currentTodos.filter(todo => !todo.completed)
         })
     }
+    function daysLeft(todoDate:Date) {
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+        const targetDate = new Date(todoDate);
+        targetDate.setHours(0, 0, 0, 0);
+        const timeDifference = targetDate.getTime() - currentDate.getTime();
+        const dayDifference = timeDifference / MILLISECONDS_A_DAY
+        if(dayDifference<-1){
+            return ` Due date was ${Math.abs(dayDifference)} days ago`
+        }else if(dayDifference===-1){
+            return ` Due date was yesterday`
+        }else if(dayDifference===0){
+            return " Today"
+        }else if(dayDifference===1){
+            return " Tomorrow"
+        }else{
+            return ` ${dayDifference} days left`
+        }
+    }
+    function openDialog(){
+        setOpen(true)
+    }
     return (
         <>
-            <div className="divNewItemForm">
-                <form onSubmit={addTodo} className="newItemForm">
-                    <label htmlFor="inputNewItem"><h2>New Todo Note</h2>
-                        <input onChange={inputChange} value={input} id="inputNewItem" className="inputNewItem"
-                               type="text" placeholder="Enter new todo note"/>
-                        <DatePicker selected={date} onChange={(date) => setDate(date)} />
-                    </label>
-                    <button type="submit" className="butNewItem">Add</button>
-                    {checkCompleted()&&<button onClick={deleteAll} className="butDelAll">Delete All</button>}
-                </form>
+            <div className="newTodoNote">
+                <h2>New Todo Note</h2>
+                <button className="butNewItem" onClick={openDialog}>New</button>
+                {checkCompleted() &&
+                    <button onClick={deleteAll} className="butDelAll">Delete All</button>}
             </div>
             <div className="divTodoList">
-            <ul className="todoList">
-            {arrayTodos}
-        </ul>
-    </div>
-</>
-
-    )}
+                <ul className="todoList">
+                {arrayTodos}
+                </ul>
+            </div>
+            <Dialog.Root open={open} onOpenChange={setOpen}>
+                <Dialog.Portal>
+                    <Dialog.Overlay className="DialogOverlay"/>
+                    <Dialog.Content className="DialogContent">
+                        <Dialog.Title className="dialogTitle">Title</Dialog.Title>
+                        <div className="divNewItemForm">
+                            <form className="newItemForm">
+                                <label htmlFor="inputNewItem">
+                                    <input maxLength={MAX_LENGTH_INPUT} onChange={inputChange} value={input}
+                                           id="inputNewItem"
+                                           className="inputNewItem"
+                                           type="text" placeholder="Enter new todo note"/>
+                                    <DatePicker selected={date} onChange={(date) => setDate(date)}/>
+                                </label>
+                            </form>
+                        </div>
+                        <Flex direction="column" gap="3">
+                                <TextArea resize="none" size="3" placeholder="Description..."/>
+                        </Flex>
+                        <button onClick={addTodo}>Save</button>
+                        <button>Cancel</button>
+                    </Dialog.Content>
+                </Dialog.Portal>
+            </Dialog.Root>
+        </>
+    )
+}
