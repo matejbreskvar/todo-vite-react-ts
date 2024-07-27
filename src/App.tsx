@@ -1,4 +1,4 @@
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import {Todo} from "./Todo.tsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,11 +11,16 @@ const MAX_LENGTH_INPUT = 100;
 
 export default function App() {
     const [input, setInput] = useState("");
-    const[todos,setTodos]=useState<Todo[]>([])
+    const[todos,setTodos]=useState<Todo[]>(()=>{
+        const savedTodos = localStorage.getItem("todos")
+        return (savedTodos!==null) ? JSON.parse(savedTodos) : [] ;
+    })
     const [date, setDate] = useState<Date|null>(null);
     const [open, setOpen] = useState(false);
     const [text,setText] = useState("");
-
+    useEffect(()=>{
+        localStorage.setItem("todos",JSON.stringify(todos));
+    },[todos])
     const arrayTodos = todos.map((todo: Todo) => {
         return (
             <li key={todo.id} className="liTodo">
@@ -94,6 +99,12 @@ export default function App() {
     function openDialog(){
         setOpen(true)
     }
+    function handleCancel(){
+        setOpen(false)
+        setInput("")
+        setDate(null)
+        setText("")
+    }
     return (
         <>
             <div className="newTodoNote">
@@ -123,11 +134,11 @@ export default function App() {
                                 </label>
                             </form>
                         </div>
-                        <Flex direction="column" gap="3">
-                                <TextArea resize="none" size="3" placeholder="Description..."/>
+                        <Flex direction="column" gap="3" maxWidth="250px">
+                            <TextArea value={text} onChange={e =>{ setText(e.target.value)}} className="nonResizableTextArea" placeholder="Description…" />
                         </Flex>
                         <button onClick={addTodo}>Save</button>
-                        <button>Cancel</button>
+                        <button onClick={handleCancel}>Cancel</button>
                     </Dialog.Content>
                 </Dialog.Portal>
             </Dialog.Root>
