@@ -3,16 +3,14 @@ import DatePicker from "react-datepicker";
 import {Flex, TextArea} from "@radix-ui/themes";
 import {ChangeEvent, useEffect, useState} from "react";
 import {Todo} from "./Todo.tsx";
+import TodoListProps from "./TodoListProps.tsx";
 
 const MILLISECONDS_A_DAY  = 86400000;
 const MAX_LENGTH_INPUT = 100;
 
-export default function TodoList(){
+export default function TodoList({todos, setTodos}: TodoListProps){
+
     const [input, setInput] = useState("");
-    const[todos,setTodos]=useState<Todo[]>(()=>{
-        const savedTodos = localStorage.getItem("todos")
-        return (savedTodos!==null) ? JSON.parse(savedTodos) : [] ;
-    })
     const [date, setDate] = useState<Date|null>(null);
     const [open, setOpen] = useState(false);
     const [text,setText] = useState("");

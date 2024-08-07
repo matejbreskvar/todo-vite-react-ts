@@ -31,4 +31,8 @@
 .nonResizableTextArea {
     resize: none !important
 }
+.divWeather{
+    position: relative;
+    width: 100%;
+}
 
