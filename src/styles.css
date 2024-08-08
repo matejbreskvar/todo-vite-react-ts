@@ -31,8 +31,103 @@
 .nonResizableTextArea {
     resize: none !important
 }
-.divWeather{
-    position: relative;
-    width: 100%;
+.divWeather {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.temp, .weather {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #555;
+}
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.weatherIcon {
+    width: 100px;
+    height: 100px;
+}
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffe0;
+    border: 2px solid #ffcc00;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px;
+    color: #ffcc00;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    text-align: center;
+}
+/* Keyframes for floating effect */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px); /* Move up */
+    }
+    100% {
+        transform: translateY(0); /* Move back to original position */
+    }
+}
+
+/* Base floating container styles */
+.floatingContainer {
+    background-color: #ffffff; /* Background color for visibility */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow to give a floating effect */
+    padding: 20px; /* Padding for content spacing */
+    margin: 20px; /* Margin for spacing around the container */
+    animation: float 3s ease-in-out infinite; /* Apply floating animation */
+    position: fixed; /* Fixed position to float it above other content */
+    left: 42%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+/* Specific styling for "No data" */
+.noData {
+    background-color: #ffcccc; /* Light red background for no data */
+    border: 2px solid #cc0000; /* Red border */
+    color: #cc0000; /* Red text color */
+}
+
+/* Specific styling for "Error" */
+.error {
+    background-color: #ffe6e6; /* Light red background for error */
+    border: 2px solid #cc0000; /* Red border */
+    color: #cc0000; /* Red text color */
+}
+
+/* Hide elements */
+.hidden {
+    display: none;
 }
 

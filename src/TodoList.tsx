@@ -20,9 +20,9 @@ export default function TodoList({todos, setTodos}: TodoListProps){
     const arrayTodos = todos.map((todo: Todo) => {
         return (
             <li key={todo.id} className="liTodo">
-                <label htmlFor="checkboxTodo">
-                    {todo.title} |
-                    {todo.date!==null && daysLeft(todo.date)}
+                <label  htmlFor="checkboxTodo">
+                    <p onClick={()=>openTodo(todo.id)}>{todo.title} |
+                        {todo.date!==null && daysLeft(todo.date)} </p>
                     <input type="checkbox" id="checkboxTodo" checked={todo.completed} onChange={(e) => handleChecked(e.target.checked,todo.id)} />
                 </label>
                 {todo.completed && <button className="deleteButton" onClick={()=>handleDelete(todo.id)}>Delete</button>}
@@ -102,6 +102,24 @@ export default function TodoList({todos, setTodos}: TodoListProps){
         setText("")
     }
 
+    function openTodo(id:string){
+        todos.map(todo=>{
+            if(todo.id===id){
+                setInput(todo.title)
+                setDate(todo.date)
+                setText(todo.text)
+                openDialog()
+            }
+        })
+    }
+
+    function dialogOnChange(){
+        setInput("")
+        setDate(null)
+        setText("")
+        open ? setOpen(false):setOpen(true)
+    }
+
     return (
         <>
         <div className="newTodoNote">
@@ -111,11 +129,12 @@ export default function TodoList({todos, setTodos}: TodoListProps){
                 <button onClick={deleteAll} className="butDelAll">Delete All Completed</button>}
         </div>
     <div className="divTodoList">
+        <h2>Todo List</h2>
         <ul className="todoList">
             {arrayTodos}
         </ul>
     </div>
-    <Dialog.Root open={open} onOpenChange={setOpen}>
+    <Dialog.Root open={open} onOpenChange={dialogOnChange}>
         <Dialog.Portal>
             <Dialog.Overlay className="DialogOverlay"/>
             <Dialog.Content className="DialogContent">

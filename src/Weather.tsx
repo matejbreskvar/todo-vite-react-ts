@@ -8,6 +8,11 @@ const apiKey = ""
 export default function Weather(){
     const [lat,setLat,]=useState<number|null>(null);
     const [lon,setLon]=useState<number|null>(null);
+    const [showNoData, setShowNoData] = useState(true);
+    const [showError, setShowError] = useState(true);
+
+    const handleNoDataClick = () => setShowNoData(false);
+    const handleErrorClick = () => setShowError(false);
 
     //useEffect is used to execute every render. Function gets the coordinates->needed in api call.
     useEffect(()=>{
@@ -33,26 +38,30 @@ export default function Weather(){
         enabled: lat !== null && lon !== null
     });
     if (!weatherQuery.data) {
-        return <div>No data available</div>;
+        return <div className={`floatingContainer noData ${!showNoData ? 'hidden' : ''}`} onClick={handleNoDataClick}>No weather data available</div>;
     }
 
     if (weatherQuery.isLoading) {
-        return <div>Loading...</div>;
+        return <div className="loading">Loading...</div>;
     }
 
     if (weatherQuery.isError) {
-        return <div>Error: {weatherQuery.error.message}</div>;
+        return <div className={`floatingContainer error ${!showError ? 'hidden' : ''}`} onClick={handleErrorClick}>Error: {weatherQuery.error.message}</div>;
     }
     const weatherIconUrl = `https://openweathermap.org/img/wn/${weatherQuery.data.weather[0].icon}@2x.png`
 
     return (
         <div className="divWeather">
-            <h1>Weather</h1>
+            <h2>Weather</h2>
 
                 <div>
                     <p className="temp">Temperature: {weatherQuery.data.main.temp.toFixed(1)}</p>
                     <p className="weather">Weather: {weatherQuery.data.weather[0].description}</p>
-                    <img className="weatherIcon" src={weatherIconUrl} alt={weatherQuery.data.weather[0].description} />
+                    <div className="iconContainer">
+                        <img className="weatherIcon" src={weatherIconUrl}
+                             alt={weatherQuery.data.weather[0].description}/>
+                    </div>
+
                 </div>
 
         </div>
