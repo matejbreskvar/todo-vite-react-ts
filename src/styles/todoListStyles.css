@@ -1,0 +1,133 @@
+/* Styling for the entire Todo List */
+.wholeTodoList {
+    width: 100%;
+    max-width: 400px; /* Limit the max width */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    position:relative;
+}
+.todoList {
+    list-style-type: none; /* Remove default bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+/* Each Todo Item */
+.todoList li {
+    background-color: #ffffff; /* White background for contrast */
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-size: 1em;
+    display: flex;
+    justify-content: space-between; /* Space out the content */
+    align-items: center; /* Center items vertically */
+}
+
+/* Styling for each Todo item */
+.liTodo {
+    background-color: #ffffff; /* White background for contrast */
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-size: 1em;
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space between content */
+}
+
+/* Label styling to ensure clickable checkbox and text */
+.liTodo label {
+    display: flex;
+    align-items: center; /* Center checkbox and text vertically */
+    flex: 1;
+    cursor: pointer; /* Make label clickable */
+}
+
+/* Styling for the text inside the label */
+.liTodo p {
+    font-size: 1.2em; /* Slightly larger font size */
+    color: #333; /* Darker text color */
+    /* Space between checkbox and text */
+    margin: 0 0 0 10px;
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Styling for the checkbox */
+.liTodo input[type="checkbox"] {
+    width: 20px; /* Make checkbox larger */
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Styling for completed todos */
+.liTodo input[type="checkbox"]:checked + p {
+    color: #999; /* Lighter color for completed items */
+    text-decoration: line-through; /* Strikethrough for completed items */
+}
+
+/* Styling for the delete button */
+.deleteButton {
+    background-color: #f44336; /* Red background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Change button color on hover */
+.deleteButton:hover {
+    background-color: #e53935; /* Darker red on hover */
+}
+.butNewItem, .butDelAll {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+/* Specific styling for New button */
+.butNewItem {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.butNewItem:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Specific styling for Delete All button */
+.butDelAll {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    margin-right: 10px; /* Space between the buttons */
+}
+
+.butDelAll:hover {
+    background-color: #e53935; /* Darker red on hover */
+}
+/* Todo List section */
+.divTodoList {
+    margin-top: 20px;
+}
+
+/* Heading for Todo List */
+.divTodoList h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #333; /* Darker text color for contrast */
+}
+.newTodoNoteTitle{
+    margin: 0;
+}

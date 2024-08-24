@@ -4,6 +4,7 @@ import {Flex, TextArea} from "@radix-ui/themes";
 import {ChangeEvent, useEffect, useState} from "react";
 import {Todo} from "./Todo.tsx";
 import TodoListProps from "./TodoListProps.tsx";
+import "./styles/styles.css"
 
 const MILLISECONDS_A_DAY  = 86400000;
 const MAX_LENGTH_INPUT = 100;
@@ -20,14 +21,25 @@ export default function TodoList({todos, setTodos}: TodoListProps){
     const arrayTodos = todos.map((todo: Todo) => {
         return (
             <li key={todo.id} className="liTodo">
-                <label  htmlFor="checkboxTodo">
-                    <p onClick={()=>openTodo(todo.id)}>{todo.title} |
-                        {todo.date!==null && daysLeft(todo.date)} </p>
-                    <input type="checkbox" id="checkboxTodo" checked={todo.completed} onChange={(e) => handleChecked(e.target.checked,todo.id)} />
+                <label htmlFor={`checkboxTodo-${todo.id}`}>
+                    <input
+                        type="checkbox"
+                        id={`checkboxTodo-${todo.id}`}
+                        checked={todo.completed}
+                        onChange={(e) => handleChecked(e.target.checked, todo.id)}
+                    />
+                    <p onClick={() => openTodo(todo.id)}>
+                        {todo.title} | {todo.date !== null && daysLeft(todo.date)}
+                    </p>
                 </label>
-                {todo.completed && <button className="deleteButton" onClick={()=>handleDelete(todo.id)}>Delete</button>}
-            </li>)
-    })
+                {todo.completed &&
+                    <button className="deleteButton" onClick={() => handleDelete(todo.id)}>
+                        Delete
+                    </button>
+                }
+            </li>
+        );
+    });
 
     function inputChange(e:ChangeEvent<HTMLInputElement>) {
         setInput(e.target.value)
@@ -122,18 +134,24 @@ export default function TodoList({todos, setTodos}: TodoListProps){
 
     return (
         <>
-        <div className="newTodoNote">
-            <h2>New Todo Note</h2>
-            <button className="butNewItem" onClick={openDialog}>New</button>
-            {checkCompleted() &&
-                <button onClick={deleteAll} className="butDelAll">Delete All Completed</button>}
-        </div>
-    <div className="divTodoList">
-        <h2>Todo List</h2>
-        <ul className="todoList">
+            <div className="wholeTodoList">
+                <div className="newTodoNote">
+                    <div className="newTodoNoteTitle">
+                        <h2>New Todo Note</h2>
+                    </div>
+
+
+                    {checkCompleted() &&
+                        <button onClick={deleteAll} className="butDelAll">Delete All Completed</button>}
+                    <button className="butNewItem" onClick={openDialog}>New</button>
+                </div>
+                <div className="divTodoList">
+                    <h2>Todo List</h2>
+                    <ul className="todoList">
             {arrayTodos}
         </ul>
     </div>
+            </div>
     <Dialog.Root open={open} onOpenChange={dialogOnChange}>
         <Dialog.Portal>
             <Dialog.Overlay className="DialogOverlay"/>

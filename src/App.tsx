@@ -1,6 +1,6 @@
 import TodoList from "./TodoList.tsx";
 import "react-datepicker/dist/react-datepicker.css";
-import './styles.css';
+import './styles/styles.css';
 import Weather from "./Weather.tsx";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import MyCalendar from "./Calendar.tsx";

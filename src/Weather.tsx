@@ -1,7 +1,7 @@
 import  {useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
-import "./styles.css"
+import "./styles/styles.css"
 
 const apiKey = ""
 
@@ -52,15 +52,14 @@ export default function Weather(){
 
     return (
         <div className="divWeather">
-            <h2>Weather</h2>
+            <h2 id="weatherTitle">Weather</h2>
 
-                <div>
-                    <p className="temp">Temperature: {weatherQuery.data.main.temp.toFixed(1)}</p>
-                    <p className="weather">Weather: {weatherQuery.data.weather[0].description}</p>
-                    <div className="iconContainer">
+
+                    <div className="temp">Temperature: {weatherQuery.data.main.temp.toFixed(1)}</div>
+                    <div className="weather">Weather: {weatherQuery.data.weather[0].description}</div>
+                    <div className="iconPlacement">
                         <img className="weatherIcon" src={weatherIconUrl}
                              alt={weatherQuery.data.weather[0].description}/>
-                    </div>
 
                 </div>
 

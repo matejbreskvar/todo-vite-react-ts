@@ -1,36 +1,3 @@
-@import '@radix-ui/colors/black-alpha.css';
-.DialogOverlay {
-    background-color: var(--black-a9);
-    position: fixed;
-    inset: 0;
-    animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.DialogContent {
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: hsl(206 22% 7% / 35%) 0 10px 38px -10px, hsl(206 22% 7% / 20%) 0 10px 20px -15px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90vw;
-    max-width: 450px;
-    max-height: 85vh;
-    padding: 25px;
-    animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.DialogContent:focus {
-    outline: none;
-}
-.DialogTitle {
-    margin: 0;
-    font-weight: 500;
-    color: var(--mauve-12);
-    font-size: 17px;
-}
-.nonResizableTextArea {
-    resize: none !important
-}
 .divWeather {
     display: flex;
     flex-direction: column;
@@ -38,38 +5,51 @@
     justify-content: center;
     padding: 20px;
     background-color: #f0f8ff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
+    border-radius: 10px; /* Retained rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Retained shadow for depth */
+    max-width: 400px; /* Maximum width of the box */
+    margin: 20px auto; /* Centered margin on the page */
+    font-family: Arial, sans-serif; /* Font styling */
 }
 
 h2 {
-    margin-bottom: 20px;
-    color: #333;
+    margin-bottom: 20px; /* Space below the heading */
+    color: #333; /* Text color for the heading */
 }
 
 .temp, .weather {
-    margin: 10px 0;
-    font-size: 18px;
-    color: #555;
+    margin: 10px 0; /* Vertical spacing for temperature and weather description */
+    font-size: 18px; /* Font size for temperature and weather */
+    color: #555; /* Text color for temperature and weather */
 }
 
+/* Removed border and background from iconContainer */
 .iconContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #333;
-    padding: 10px;
-    margin-top: 20px;
-    border-radius: 10px;
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Centering items vertically */
+    justify-content: center; /* Centering items horizontally */
+    /* background-color: white; */ /* Removed background color */
+    padding: 10px; /* Padding around the icon */
+    margin-top: 20px; /* Space above the icon container */
+    border-radius: 10px; /* Retained rounded corners */
+    /* border: 1px solid black; */ /* Removed border */
 }
 
+/* Weather icon styling */
 .weatherIcon {
-    width: 100px;
-    height: 100px;
+    width: 100px; /* Width of the weather icon */
+    height: 100px; /* Height of the weather icon */
 }
+
+/* New styles to place the icon separately */
+.iconPlacement {
+    display: flex;
+    justify-content: center; /* Center the icon in its new position */
+    margin-top: 20px; /* Space above the icon */
+}
+
+/* This class can be added to position the icon wherever you need */
+
 .loading {
     display: flex;
     align-items: center;
@@ -104,12 +84,13 @@ h2 {
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow to give a floating effect */
     padding: 20px; /* Padding for content spacing */
-    margin: 20px; /* Margin for spacing around the container */
+    /* Margin for spacing around the container */
+    margin: 20px auto;
     animation: float 3s ease-in-out infinite; /* Apply floating animation */
-    position: fixed; /* Fixed position to float it above other content */
-    left: 42%; /* Center horizontally */
+    position: relative; /* Fixed position to float it above other content */
     transform: translateX(-50%); /* Adjust for centering */
     z-index: 1000; /* Ensure it appears above other elements */
+    width: fit-content;
 }
 
 /* Specific styling for "No data" */
@@ -130,4 +111,3 @@ h2 {
 .hidden {
     display: none;
 }
-
