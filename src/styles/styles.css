@@ -1,4 +1,4 @@
-@import '../../node_modules/@radix-ui/colors/black-alpha.css';
-@import "weatherStyles.css";
-@import "dialogStyles.css";
-@import "todoListStyles.css";
+body{
+    font-family: Ariel, sans-serif !important;
+    background-image: url("C:\Users\User\WebstormProjects\projekt2\images\pexels-pixelcop-2680270.jpg");
+}

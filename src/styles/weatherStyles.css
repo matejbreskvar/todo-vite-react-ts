@@ -6,8 +6,8 @@
     padding: 20px;
     background-color: #f0f8ff;
     border-radius: 10px; /* Retained rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Retained shadow for depth */
-    max-width: 400px; /* Maximum width of the box */
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5) ;
+    width: 400px; /* Maximum width of the box */
     margin: 20px auto; /* Centered margin on the page */
     font-family: Arial, sans-serif; /* Font styling */
 }
@@ -39,6 +39,7 @@ h2 {
 .weatherIcon {
     width: 100px; /* Width of the weather icon */
     height: 100px; /* Height of the weather icon */
+    background: radial-gradient(circle, #ccc 40%, #f0f8ff 70%);
 }
 
 /* New styles to place the icon separately */

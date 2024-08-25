@@ -1,16 +1,15 @@
 import { useState } from "react";
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
-import { Todo } from "./Todo";
+import  Todo  from "./Todo";
 import * as Dialog from "@radix-ui/react-dialog";
+import "./styles/calendarStyles.css"
 
 export default function MyCalendar({ todos }: { todos: Todo[] }) {
-    const [date, setDate] = useState(new Date());
     const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
     const [open, setOpen] = useState(false);
 
     function handleDayClick(value: Date) {
-        setDate(value)
         filterTodos(value)
         setOpen(true)
     }
@@ -40,13 +39,27 @@ export default function MyCalendar({ todos }: { todos: Todo[] }) {
     }
 
     return (
-        <div>
+        <div className="calendarDiv">
             <Calendar
-                onChange={()=>setDate}
-                value={date}
+                value={new Date}
                 onClickDay={handleDayClick}
+                className="calendar-body"
+                tileContent={({ date, view }) => {
+                    if (view === 'month') {
+                        const hasTodos = todos.some(todo => {
+                            if (!todo.date) return false;
+                            const todoDate = new Date(todo.date);
+                            return (
+                                todoDate.getFullYear() === date.getFullYear() &&
+                                todoDate.getMonth() === date.getMonth() &&
+                                todoDate.getDate() === date.getDate()
+                            );
+                        });
+                        return hasTodos ? <div className="dot"></div> : null;
+                    }
+                    return null;
+                }}
             />
-            <p>Date: {date.toDateString()}</p>
             <Dialog.Root open={open} onOpenChange={setOpen}>
                 <Dialog.Portal>
                     <Dialog.Overlay className="DialogOverlay"/>
@@ -65,7 +78,7 @@ export default function MyCalendar({ todos }: { todos: Todo[] }) {
                                 ))
                             )}
                         </ul>
-                        <button onClick={handleClose}>Close</button>
+                        <button className="closeButton" onClick={handleClose}>Close</button>
                     </Dialog.Content>
                 </Dialog.Portal>
             </Dialog.Root>

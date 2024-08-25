@@ -1,7 +1,7 @@
 import  {useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
-import "./styles/styles.css"
+import "./styles/weatherStyles.css"
 
 const apiKey = ""
 

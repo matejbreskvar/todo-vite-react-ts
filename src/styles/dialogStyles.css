@@ -1,32 +1,172 @@
-.DialogOverlay {
-    background-color: var(--black-a9);
-    position: fixed;
-    inset: 0;
-    animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+/* Open Dialog Button */
+.openDialogButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007bff; /* Primary color */
+    color: #fff; /* White text */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
 }
+
+.openDialogButton:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+/* Dialog Overlay */
+.DialogOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1000; /* Ensure the overlay is above other content */
+}
+
+/* Dialog Content */
 .DialogContent {
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: hsl(206 22% 7% / 35%) 0 10px 38px -10px, hsl(206 22% 7% / 20%) 0 10px 20px -15px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90vw;
-    max-width: 450px;
-    max-height: 85vh;
-    padding: 25px;
-    animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    background: #fff; /* White background for the dialog */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px;
+    max-width: 500px; /* Maximum width of the dialog */
+    width: 90%; /* Responsive width */
+    z-index: 1001; /* Ensure the content is above the overlay */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
-.DialogContent:focus {
-    outline: none;
+
+/* Dialog Title */
+.dialogTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333; /* Dark text for contrast */
 }
-.DialogTitle {
-    margin: 0;
-    font-weight: 500;
-    color: var(--mauve-12);
-    font-size: 17px;
+
+/* Dialog Form */
+.dialogForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Space between form elements */
 }
+
+/* Form Label */
+.formLabel {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input Field */
+.inputNewItem {
+    padding: 0.5rem;
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* DatePicker Styling */
+.datePicker {
+    margin-top: 0.5rem;
+    border-radius: 4px;
+}
+
+/* Non-Resizable Text Area */
 .nonResizableTextArea {
-    resize: none !important
+    resize: none!important; /* Disable resizing */
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px;
+    font-size: 1rem;
+    min-height: 100px; /* Minimum height for the text area */
+    box-sizing: border-box; /* Include padding in height */
 }
+
+/* Button Container */
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 0.5rem; /* Space between buttons */
+}
+
+/* Save Button */
+.saveButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #007bff; /* Primary button color */
+    color: #fff; /* White text */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+.saveButton:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.saveButton:active {
+    background-color: #004085; /* Even darker blue on click */
+}
+
+/* Cancel Button */
+.cancelButton {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #6c757d; /* Secondary button color */
+    color: #fff; /* White text */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+.cancelButton:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.cancelButton:active {
+    background-color: #343a40; /* Even darker gray on click */
+}
+/* Container to align text and DatePicker side by side */
+.datePickerContainer {
+    margin-top: 0;
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Center items vertically */
+    gap: 10px; /* Space between text and DatePicker */
+}
+
+/* Optional: Style for the label */
+.datePickerLabel {
+    display: flex; /* Ensures the DatePicker is correctly aligned */
+    align-items: center; /* Vertically align DatePicker within the label */
+}
+
+/* Adjust the text size and margin for better alignment */
+.selectDateText p {
+    margin-top: 20px;
+    font-size: 14px; /* Adjust font size to match the DatePicker height */
+}
+
+/* Style for the DatePicker */
+.datePicker {
+    width: 150px; /* Example width */
+    height: 20px; /* Adjust height to better match the text */
+}
+
+
+
+
+

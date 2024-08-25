@@ -2,11 +2,11 @@
 .wholeTodoList {
     width: 100%;
     max-width: 400px; /* Limit the max width */
-    margin: 0 auto; /* Center the container horizontally */
+    margin: 20px auto; /* Center the container horizontally */
     padding: 20px;
-    background-color: #f9f9f9; /* Light background color */
+    background-color: #f0f8ff; /* Light background color */
     border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
     position:relative;
 }
 .todoList {
@@ -22,7 +22,6 @@
     padding: 15px;
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    font-size: 1em;
     display: flex;
     justify-content: space-between; /* Space out the content */
     align-items: center; /* Center items vertically */
@@ -35,7 +34,6 @@
     padding: 15px;
     border-radius: 5px; /* Rounded corners */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    font-size: 1em;
     display: flex;
     align-items: center; /* Center items vertically */
     justify-content: space-between; /* Space between content */
@@ -51,7 +49,6 @@
 
 /* Styling for the text inside the label */
 .liTodo p {
-    font-size: 1.2em; /* Slightly larger font size */
     color: #333; /* Darker text color */
     /* Space between checkbox and text */
     margin: 0 0 0 10px;
@@ -66,34 +63,41 @@
 }
 
 /* Styling for completed todos */
-.liTodo input[type="checkbox"]:checked + p {
-    color: #999; /* Lighter color for completed items */
-    text-decoration: line-through; /* Strikethrough for completed items */
+.liTodo input[type="checkbox"]:checked + .todoText p {
+    color: #999 !important; /* Lighter color for completed items */
+    text-decoration: line-through !important; /* Strikethrough for completed items */
 }
-
 /* Styling for the delete button */
 .deleteButton {
     background-color: #f44336; /* Red background */
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 8px 12px;
+    padding: 12px 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions for color and scale */
+    font-size: 1em; /* Ensure consistent font size */
+    font-weight: bold; /* Ensure text stands out */
 }
 
-/* Change button color on hover */
+/* Change button color and scale on hover */
 .deleteButton:hover {
     background-color: #e53935; /* Darker red on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+    transform-origin: center; /* Ensure scaling happens from the center */
 }
+
+/* General styling for New Item and Delete All buttons */
 .butNewItem, .butDelAll {
     padding: 10px 20px;
     font-size: 1em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions for color and scale */
+    font-weight: bold; /* Ensure text stands out */
 }
+
 /* Specific styling for New button */
 .butNewItem {
     background-color: #4CAF50; /* Green background */
@@ -103,8 +107,11 @@
     right: 20px;
 }
 
+/* Change New button color and scale on hover */
 .butNewItem:hover {
     background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+    transform-origin: center; /* Ensure scaling happens from the center */
 }
 
 /* Specific styling for Delete All button */
@@ -114,9 +121,14 @@
     margin-right: 10px; /* Space between the buttons */
 }
 
+/* Change Delete All button color and scale on hover */
 .butDelAll:hover {
     background-color: #e53935; /* Darker red on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+    transform-origin: center; /* Ensure scaling happens from the center */
 }
+
+
 /* Todo List section */
 .divTodoList {
     margin-top: 20px;
@@ -125,9 +137,17 @@
 /* Heading for Todo List */
 .divTodoList h2 {
     margin-bottom: 10px;
-    font-size: 1.5em;
     color: #333; /* Darker text color for contrast */
 }
-.newTodoNoteTitle{
-    margin: 0;
+/* Ensure the todoText container stacks the text vertically */
+.todoText {
+    display: flex;
+    flex-direction: column; /* Stack the paragraphs vertically */
+    font-weight: 550;
+}
+
+/* Style the paragraphs */
+.dueDate {
+font-size: 15px;
+font-weight: 100;
 }

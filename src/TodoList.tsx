@@ -1,20 +1,20 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import DatePicker from "react-datepicker";
-import {Flex, TextArea} from "@radix-ui/themes";
-import {ChangeEvent, useEffect, useState} from "react";
-import {Todo} from "./Todo.tsx";
+import {useEffect, useState} from "react";
+import Dialog from "./Dialog.tsx";
+import Todo from "./Todo.tsx";
 import TodoListProps from "./TodoListProps.tsx";
-import "./styles/styles.css"
+import "./styles/todoListStyles.css"
 
 const MILLISECONDS_A_DAY  = 86400000;
-const MAX_LENGTH_INPUT = 100;
+
 
 export default function TodoList({todos, setTodos}: TodoListProps){
-
+    const [open, setOpen] = useState(false);
     const [input, setInput] = useState("");
     const [date, setDate] = useState<Date|null>(null);
-    const [open, setOpen] = useState(false);
+
     const [text,setText] = useState("");
+
+
     useEffect(()=>{
         localStorage.setItem("todos",JSON.stringify(todos));
     },[todos])
@@ -28,9 +28,10 @@ export default function TodoList({todos, setTodos}: TodoListProps){
                         checked={todo.completed}
                         onChange={(e) => handleChecked(e.target.checked, todo.id)}
                     />
-                    <p onClick={() => openTodo(todo.id)}>
-                        {todo.title} | {todo.date !== null && daysLeft(todo.date)}
-                    </p>
+                    <div className="todoText">
+                        <p onClick={() => openTodo(todo.id)}>{todo.title}</p>
+                        <p className="dueDate">{todo.date !== null && daysLeft(todo.date)}</p>
+                    </div>
                 </label>
                 {todo.completed &&
                     <button className="deleteButton" onClick={() => handleDelete(todo.id)}>
@@ -41,20 +42,8 @@ export default function TodoList({todos, setTodos}: TodoListProps){
         );
     });
 
-    function inputChange(e:ChangeEvent<HTMLInputElement>) {
-        setInput(e.target.value)
-        //console.log(input)
-    }
-    function addTodo() {
-        if(input==="")return
-        setTodos(currentTodos=>{
-            return [...currentTodos, {id:crypto.randomUUID(), title:input, text:text, completed:false, date:date}]
-        })
-        setText("")
-        setOpen(false);
-        setInput("")
-        setDate(null);
-    }
+
+
     function handleChecked(completed:boolean,id: string ) {
         setTodos(currentTodos =>{
             return currentTodos.map(todo =>{
@@ -107,12 +96,7 @@ export default function TodoList({todos, setTodos}: TodoListProps){
     function openDialog(){
         setOpen(true)
     }
-    function handleCancel(){
-        setOpen(false)
-        setInput("")
-        setDate(null)
-        setText("")
-    }
+
 
     function openTodo(id:string){
         todos.map(todo=>{
@@ -125,25 +109,16 @@ export default function TodoList({todos, setTodos}: TodoListProps){
         })
     }
 
-    function dialogOnChange(){
-        setInput("")
-        setDate(null)
-        setText("")
-        open ? setOpen(false):setOpen(true)
-    }
+
 
     return (
         <>
             <div className="wholeTodoList">
                 <div className="newTodoNote">
-                    <div className="newTodoNoteTitle">
-                        <h2>New Todo Note</h2>
-                    </div>
-
 
                     {checkCompleted() &&
                         <button onClick={deleteAll} className="butDelAll">Delete All Completed</button>}
-                    <button className="butNewItem" onClick={openDialog}>New</button>
+                    <button className="butNewItem" onClick={openDialog}>New Todo</button>
                 </div>
                 <div className="divTodoList">
                     <h2>Todo List</h2>
@@ -152,32 +127,7 @@ export default function TodoList({todos, setTodos}: TodoListProps){
         </ul>
     </div>
             </div>
-    <Dialog.Root open={open} onOpenChange={dialogOnChange}>
-        <Dialog.Portal>
-            <Dialog.Overlay className="DialogOverlay"/>
-            <Dialog.Content className="DialogContent">
-                <Dialog.Title className="dialogTitle">Title</Dialog.Title>
-                <div className="divNewItemForm">
-                    <form className="newItemForm">
-                        <label htmlFor="inputNewItem">
-                            <input maxLength={MAX_LENGTH_INPUT} onChange={inputChange} value={input}
-                                   id="inputNewItem"
-                                   className="inputNewItem"
-                                   type="text" placeholder="Enter new todo note"/>
-                            <DatePicker selected={date} onChange={(date) => setDate(date)}/>
-                        </label>
-                    </form>
-                </div>
-                <Flex direction="column" gap="3" maxWidth="250px">
-                    <TextArea value={text} onChange={e => {
-                        setText(e.target.value)
-                    }} className="nonResizableTextArea" placeholder="Description…"/>
-                </Flex>
-                <button onClick={addTodo}>Save</button>
-                <button onClick={handleCancel}>Cancel</button>
-            </Dialog.Content>
-        </Dialog.Portal>
-    </Dialog.Root>
+        <Dialog setTodos={setTodos} setInput={setInput} setDate={setDate} setText={setText} setOpen={setOpen} input={input} open={open} text={text} date={date}/>
         </>
 )
 }
