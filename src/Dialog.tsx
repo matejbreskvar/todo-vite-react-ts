@@ -5,42 +5,53 @@ import  {ChangeEvent} from "react";
 import DialogProps from "./DialogProps.tsx";
 import "./styles/dialogStyles.css"
 
+const MAX_LENGTH_INPUT = 100;  // Maximum length for the input field
 
-const MAX_LENGTH_INPUT = 100;
+export default function Dialog({
+                                   setTodos,
+                                   setInput,
+                                   setDate,
+                                   setText,
+                                   setOpen,
+                                   input,
+                                   open,
+                                   text,
+                                   date
+                               }: DialogProps) {
 
-export default function Dialog({setTodos, setInput, setDate, setText, setOpen, input, open, text, date}:DialogProps) {
-
-
-    function dialogOnChange(open:boolean){
-        if(!open) {
-            setInput("")
-            setDate(null)
-            setText("")
+    // Function to handle dialog state change
+    function dialogOnChange(open: boolean) {
+        if (!open) {
+            setInput("");  // Clear input when dialog is closed
+            setDate(null);  // Clear date when dialog is closed
+            setText("");  // Clear text when dialog is closed
         }
-         setOpen(open)
+        setOpen(open);  // Update dialog open state
     }
 
-    function handleCancel(){
-        setOpen(false)
-        setInput("")
-        setDate(null)
-        setText("")
+    // Function to handle cancel button click
+    function handleCancel() {
+        setOpen(false);  // Close the dialog
+        setInput("");  // Clear input
+        setDate(null);  // Clear date
+        setText("");  // Clear text
     }
 
+    // Function to add a new todo item
     function addTodo() {
-        if(input==="")return
-        setTodos(currentTodos=>{
-            return [...currentTodos, {id:crypto.randomUUID(), title:input, text:text, completed:false, date:date}]
-        })
-        setText("")
-        setOpen(false);
-        setInput("")
-        setDate(null);
+        if (input === "") return;  // Do nothing if input is empty
+        setTodos(currentTodos => {
+            return [...currentTodos, { id: crypto.randomUUID(), title: input, text: text, completed: false, date: date }];
+        });
+        setText("");  // Clear text after adding todo
+        setOpen(false);  // Close the dialog
+        setInput("");  // Clear input
+        setDate(null);  // Clear date
     }
 
-    function inputChange(e:ChangeEvent<HTMLInputElement>) {
-        setInput(e.target.value)
-        //console.log(input)
+    // Function to handle input field changes
+    function inputChange(e: ChangeEvent<HTMLInputElement>) {
+        setInput(e.target.value);  // Update input state
     }
 
 return (

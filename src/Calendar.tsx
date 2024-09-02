@@ -6,36 +6,42 @@ import * as Dialog from "@radix-ui/react-dialog";
 import "./styles/calendarStyles.css"
 
 export default function MyCalendar({ todos }: { todos: Todo[] }) {
+    // State to hold todos filtered by selected date
     const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
+    // State to manage the visibility of the dialog
     const [open, setOpen] = useState(false);
 
+    // Function to handle day clicks on the calendar
     function handleDayClick(value: Date) {
-        filterTodos(value)
-        setOpen(true)
+        filterTodos(value);  // Filter todos for the selected date
+        setOpen(true);  // Open the dialog
     }
 
+    // Function to filter todos based on the selected date
     function filterTodos(selectedDate: Date) {
         const filtered = todos.filter(todo => {
-            if (!todo.date) return false;
-            const todoDate = new Date(todo.date)
+            if (!todo.date) return false;  // Skip todos without a date
+            const todoDate = new Date(todo.date);
             return (
                 todoDate.getFullYear() === selectedDate.getFullYear() &&
                 todoDate.getMonth() === selectedDate.getMonth() &&
                 todoDate.getDate() === selectedDate.getDate()
             );
         });
-        setFilteredTodos(filtered)
+        setFilteredTodos(filtered);  // Update the state with filtered todos
     }
 
+    // Function to close the dialog
     function handleClose(){
-        setOpen(false);
+        setOpen(false);  // Set the dialog visibility to false
     }
 
+    // Function to truncate text if it exceeds a maximum length
     function truncateText(text: string, maxLength: number) {
         if (text.length > maxLength) {
-            return text.slice(0, maxLength) + "...";
+            return text.slice(0, maxLength) + "...";  // Truncate and append ellipsis
         }
-        return text;
+        return text;  // Return text as is if it's within the limit
     }
 
     return (

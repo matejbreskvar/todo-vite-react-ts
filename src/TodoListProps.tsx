@@ -1,4 +1,5 @@
-import {Todo} from './Todo';
+import Todo from './Todo';
+import React from "react";
 
 export default interface TodoListProps {
     todos: Todo[];

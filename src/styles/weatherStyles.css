@@ -1,3 +1,4 @@
+/* Weather Component Container */
 .divWeather {
     display: flex;
     flex-direction: column;
@@ -5,52 +6,50 @@
     justify-content: center;
     padding: 20px;
     background-color: #f0f8ff;
-    border-radius: 10px; /* Retained rounded corners */
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5) ;
-    width: 400px; /* Maximum width of the box */
-    margin: 20px auto; /* Centered margin on the page */
-    font-family: Arial, sans-serif; /* Font styling */
+    border-radius: 10px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+    width: 400px;
+    margin: 20px auto;
 }
 
+/* Heading Styling */
 h2 {
-    margin-bottom: 20px; /* Space below the heading */
-    color: #333; /* Text color for the heading */
+    margin-bottom: 20px;
+    color: #333;
 }
 
+/* Temperature and Weather Description Styling */
 .temp, .weather {
-    margin: 10px 0; /* Vertical spacing for temperature and weather description */
-    font-size: 18px; /* Font size for temperature and weather */
-    color: #555; /* Text color for temperature and weather */
+    margin: 10px 0;
+    font-size: 18px;
+    color: #555;
 }
 
-/* Removed border and background from iconContainer */
+/* Icon Container */
 .iconContainer {
-    display: flex; /* Flexbox for alignment */
-    align-items: center; /* Centering items vertically */
-    justify-content: center; /* Centering items horizontally */
-    /* background-color: white; */ /* Removed background color */
-    padding: 10px; /* Padding around the icon */
-    margin-top: 20px; /* Space above the icon container */
-    border-radius: 10px; /* Retained rounded corners */
-    /* border: 1px solid black; */ /* Removed border */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
 }
 
-/* Weather icon styling */
+/* Weather Icon Styling */
 .weatherIcon {
-    width: 100px; /* Width of the weather icon */
-    height: 100px; /* Height of the weather icon */
-    background: radial-gradient(circle, #ccc 40%, #f0f8ff 70%);
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #e1e9f0 50%, #f0f8ff 70%);
 }
 
-/* New styles to place the icon separately */
+/* Icon Placement */
 .iconPlacement {
     display: flex;
-    justify-content: center; /* Center the icon in its new position */
-    margin-top: 20px; /* Space above the icon */
+    justify-content: center;
+    margin-top: 20px;
 }
 
-/* This class can be added to position the icon wherever you need */
-
+/* Loading State Styling */
 .loading {
     display: flex;
     align-items: center;
@@ -66,49 +65,49 @@ h2 {
     width: 200px;
     text-align: center;
 }
-/* Keyframes for floating effect */
+
+/* Floating Animation */
 @keyframes float {
     0% {
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-10px); /* Move up */
+        transform: translateY(-10px);
     }
     100% {
-        transform: translateY(0); /* Move back to original position */
+        transform: translateY(0);
     }
 }
 
-/* Base floating container styles */
+/* Floating Container */
 .floatingContainer {
-    background-color: #ffffff; /* Background color for visibility */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow to give a floating effect */
-    padding: 20px; /* Padding for content spacing */
-    /* Margin for spacing around the container */
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
     margin: 20px auto;
-    animation: float 3s ease-in-out infinite; /* Apply floating animation */
-    position: relative; /* Fixed position to float it above other content */
-    transform: translateX(-50%); /* Adjust for centering */
-    z-index: 1000; /* Ensure it appears above other elements */
+    animation: float 3s ease-in-out infinite;
+    position: relative;
+    transform: translateX(-50%);
+    z-index: 1000;
     width: fit-content;
 }
 
-/* Specific styling for "No data" */
+/* No Data Styling */
 .noData {
-    background-color: #ffcccc; /* Light red background for no data */
-    border: 2px solid #cc0000; /* Red border */
-    color: #cc0000; /* Red text color */
+    background-color: #ffcccc;
+    border: 2px solid #cc0000;
+    color: #cc0000;
 }
 
-/* Specific styling for "Error" */
+/* Error Styling */
 .error {
-    background-color: #ffe6e6; /* Light red background for error */
-    border: 2px solid #cc0000; /* Red border */
-    color: #cc0000; /* Red text color */
+    background-color: #ffe6e6;
+    border: 2px solid #cc0000;
+    color: #cc0000;
 }
 
-/* Hide elements */
+/* Hidden Elements */
 .hidden {
     display: none;
 }
