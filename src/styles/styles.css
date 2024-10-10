@@ -1,4 +1,10 @@
-body{
+body {
     font-family: Arial, sans-serif !important;
-    background-image: url("C:\Users\User\WebstormProjects\projekt2\images\BackgroundImage.jpg");
-}
+    margin: 0;
+    padding: 0;
+    background-image: url('/images/BackgroundImage.jpg');
+    background-size: cover; /* Ensures the image covers the whole screen */
+    background-position: center; /* Centers the image */
+    background-attachment: fixed; /* Keeps the background in place when scrolling */
+    background-repeat: no-repeat; /* Prevents the background from repeating */
+    }
